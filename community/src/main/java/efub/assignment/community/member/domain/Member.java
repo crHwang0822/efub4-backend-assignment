@@ -2,9 +2,7 @@ package efub.assignment.community.member.domain;
 
 import efub.assignment.community.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -13,6 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Builder
+@AllArgsConstructor
 public class Member extends BaseTimeEntity {
 
     @Id
