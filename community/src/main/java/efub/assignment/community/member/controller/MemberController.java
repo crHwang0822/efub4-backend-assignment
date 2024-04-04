@@ -1,7 +1,7 @@
 package efub.assignment.community.member.controller;
 
 import efub.assignment.community.member.dto.MemberResponseDto;
-import efub.assignment.community.member.dto.SignUpRequestDto;
+import efub.assignment.community.member.dto.MemberRequestDto;
 import efub.assignment.community.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +17,17 @@ public class MemberController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public MemberResponseDto signUp(@RequestBody @Valid final SignUpRequestDto requestDto){
+    public MemberResponseDto signUp(@RequestBody @Valid final MemberRequestDto requestDto){
         MemberResponseDto responseDto = memberService.signUp(requestDto);
         return responseDto;
     }
+
+    @PatchMapping("/{memberId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public MemberResponseDto updateMember(@PathVariable Long memberId, @RequestBody @Valid MemberRequestDto requestDto){
+        MemberResponseDto responseDto = memberService.updateMember(memberId, requestDto);
+        return responseDto;
+    }
+
 
 }

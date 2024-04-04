@@ -34,4 +34,9 @@ public class Member extends BaseTimeEntity {
 
     @Column(name = "student_id", nullable = false, updatable = false, length = 10)
     private String studentId;
+
+    public void changeNickname(String nickname){
+        this.nickname = nickname;
+    }
+
 }

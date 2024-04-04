@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SignUpRequestDto {
+public class MemberRequestDto {
     @NotBlank
     @Email
     private String email;
