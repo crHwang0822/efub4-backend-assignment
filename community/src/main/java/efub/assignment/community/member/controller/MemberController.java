@@ -22,7 +22,7 @@ public class MemberController {
         return responseDto;
     }
 
-    @PatchMapping("/{memberId}")
+    @PatchMapping("/profile/{memberId}")
     @ResponseStatus(value = HttpStatus.OK)
     public MemberResponseDto updateMember(@PathVariable Long memberId, @RequestBody @Valid MemberRequestDto requestDto){
         MemberResponseDto responseDto = memberService.updateMember(memberId, requestDto);
