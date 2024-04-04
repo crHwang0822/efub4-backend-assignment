@@ -40,5 +40,12 @@ public class MemberController {
         return responseDto;
     }
 
+    @PatchMapping("{memberId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public String withdraw(@PathVariable Long memberId){
+        memberService.withdraw(memberId);
+        return "삭제가 완료되었습니다.";
+    }
+
 
 }

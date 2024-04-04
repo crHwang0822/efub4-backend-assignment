@@ -3,6 +3,8 @@ package efub.assignment.community.member.domain;
 import efub.assignment.community.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @AllArgsConstructor
+@DynamicInsert
 public class Member extends BaseTimeEntity {
 
     @Id
@@ -35,8 +38,16 @@ public class Member extends BaseTimeEntity {
     @Column(name = "student_id", nullable = false, updatable = false, length = 10)
     private String studentId;
 
+    @ColumnDefault("'REGISTERED'")
+    @Enumerated(EnumType.STRING)
+    private MemberStatus status;
+
     public void changeNickname(String nickname){
         this.nickname = nickname;
+    }
+
+    public void changeStatus(){
+        this.status = MemberStatus.UNREGISTERED;
     }
 
 }

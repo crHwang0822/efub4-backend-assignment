@@ -45,4 +45,12 @@ public class MemberService {
         return responseDto;
     }
 
+    public void withdraw(Long memberId){
+        Member member = memberRepository.findById(memberId).orElseThrow(()->{
+            throw new IllegalArgumentException("존재하지 않는 memberId입니다.");
+        });
+        member.changeStatus();
+        memberRepository.save(member);
+    }
+
 }
