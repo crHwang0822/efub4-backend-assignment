@@ -63,4 +63,10 @@ public class PostService {
                 .posts(list).count(count).build();
     }
 
+    public PostDetailsResponseDto getPost(Long postId){
+        Post post = findPostById(postId);
+        PostDetailsResponseDto responseDto = PostDetailsResponseDto.toDto(post);
+        return responseDto;
+    }
+
 }

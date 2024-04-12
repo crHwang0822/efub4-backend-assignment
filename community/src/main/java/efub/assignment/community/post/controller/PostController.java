@@ -41,4 +41,12 @@ public class PostController {
         PostListResponseDto responseDto = postService.findPostsByBoard(boardId);
         return responseDto;
     }
+
+    //게시글 1개 상세 조회
+    @GetMapping("/{postId}")
+    @ResponseStatus(HttpStatus.OK)
+    public PostDetailsResponseDto getPost(@PathVariable Long postId){
+        PostDetailsResponseDto responseDto = postService.getPost(postId);
+        return responseDto;
+    }
 }
