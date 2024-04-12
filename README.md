@@ -2,7 +2,7 @@
 
 ## 🧩 ERD
 
-![image](https://github.com/crHwang0822/efub4-backend-assignment/assets/87927105/c297cdf9-9bba-4a5d-a92d-e5caa219c99f)
+![efub4th assignment](https://github.com/crHwang0822/efub4-backend-assignment/assets/87927105/611aa2f9-c3d6-4d39-a9fd-3bff3409a9da)
 
 
 
