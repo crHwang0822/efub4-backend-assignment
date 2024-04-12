@@ -5,7 +5,7 @@ import efub.assignment.community.board.dto.BoardRequestDto;
 import efub.assignment.community.board.dto.BoardResponseDto;
 import efub.assignment.community.board.repository.BoardRepository;
 import efub.assignment.community.member.domain.Member;
-import efub.assignment.community.member.repository.MemberRepository;
+import efub.assignment.community.member.service.MemberService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -18,19 +18,29 @@ import org.springframework.stereotype.Service;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-    private final  MemberRepository memberRepository;
+    private final MemberService memberService;
 
     public BoardResponseDto createBoard(BoardRequestDto requestDto){
         if(boardRepository.existsByName(requestDto.getName())){
             throw new EntityExistsException(requestDto.getName() + ": 이미 존재하는 게시판 이름입니다.");
         }
-        if(!memberRepository.existsByNickname(requestDto.getOwnerName())){
-            throw new EntityNotFoundException(requestDto.getOwnerName() + ": 존재하지 않는 회원입니다.");
-        }
-        Member member = memberRepository.findByNickname(requestDto.getOwnerName());
+        Member member = memberService.findMemberByNickname(requestDto.getOwnerName());
         Board board = requestDto.toEntity(member);
         boardRepository.save(board);
         BoardResponseDto responseDto = BoardResponseDto.toDto(board);
         return responseDto;
+    }
+
+    public BoardResponseDto updateBoard(Long boardId, String ownerName){
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(()-> {throw new EntityNotFoundException(boardId + ": 존재하지 않는 게시판입니다.");});
+        Member member = memberService.findMemberByNickname(ownerName);
+
+        board.changeOwner(member);
+        boardRepository.save(board);
+        boardRepository.flush();
+        BoardResponseDto responseDto = BoardResponseDto.toDto(board);
+        return responseDto;
+
     }
 }

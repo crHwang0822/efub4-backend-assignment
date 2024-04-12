@@ -5,6 +5,7 @@ import efub.assignment.community.member.dto.MemberDetailsResponseDto;
 import efub.assignment.community.member.dto.MemberResponseDto;
 import efub.assignment.community.member.dto.MemberRequestDto;
 import efub.assignment.community.member.repository.MemberRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,13 @@ public class MemberService {
         });
         member.deactivateAccount();
         memberRepository.save(member);
+    }
+
+    public Member findMemberByNickname(String nickname){
+        Member member = memberRepository.findByNickname(nickname).orElseThrow(()-> {
+                    throw new EntityNotFoundException(nickname + ": 존재하지 않는 회원입니다.");
+                });
+        return member;
     }
 
 }

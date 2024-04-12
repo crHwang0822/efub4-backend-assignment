@@ -30,4 +30,8 @@ public class Board extends BaseTimeEntity {
 
     @Column(length = 1000)
     private String notice;
+
+    public void changeOwner(Member member){
+        this.member = member;
+    }
 }
