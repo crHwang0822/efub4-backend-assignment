@@ -41,6 +41,13 @@ public class BoardService {
         boardRepository.flush();
         BoardResponseDto responseDto = BoardResponseDto.toDto(board);
         return responseDto;
+    }
 
+    public BoardResponseDto getBoard(Long boardId){
+        Board board = boardRepository.findById(boardId).orElseThrow(()->{
+            throw new EntityNotFoundException(boardId + ": 존재하지 않는 게시판입니다.");
+        });
+        BoardResponseDto responseDto = BoardResponseDto.toDto(board);
+        return responseDto;
     }
 }

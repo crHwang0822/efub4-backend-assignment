@@ -29,4 +29,11 @@ public class BoardController {
         return responseDto;
     }
 
+    @GetMapping("/{boardId}")
+    @ResponseStatus(HttpStatus.OK)
+    public BoardResponseDto getBoard(@PathVariable Long boardId){
+        BoardResponseDto responseDto = boardService.getBoard(boardId);
+        return responseDto;
+    }
+
 }

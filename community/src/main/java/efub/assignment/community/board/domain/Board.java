@@ -19,7 +19,7 @@ public class Board extends BaseTimeEntity {
     private Long boardId;
 
     @ManyToOne
-    @JoinColumn(name = "member_id", updatable = false)
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @Column(unique = true, nullable=false, length = 20)
