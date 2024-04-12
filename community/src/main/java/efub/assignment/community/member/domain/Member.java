@@ -23,7 +23,7 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_id", updatable = false)
     private Long memberId;
 
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false, length = 60, updatable = false)
     private String email;
 
     @Column(nullable = false)
@@ -46,7 +46,7 @@ public class Member extends BaseTimeEntity {
         this.nickname = nickname;
     }
 
-    public void changeStatus(){
+    public void deactivateAccount(){
         this.status = MemberStatus.UNREGISTERED;
     }
 
