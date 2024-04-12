@@ -13,7 +13,7 @@ public class PostDetailsResponseDto {
     private Long postId;
     private Long boardId;
     private String writerName;
-    private boolean isAnonymous;
+    private boolean anonymous;
     private String content;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
@@ -23,7 +23,7 @@ public class PostDetailsResponseDto {
                 .postId(post.getPostId())
                 .boardId(post.getBoard().getBoardId())
                 .writerName(post.getMember().getNickname())
-                .isAnonymous(post.isAnonymous())
+                .anonymous(post.isAnonymous())
                 .content(post.getContent())
                 .createdDate(post.getRegDate())
                 .modifiedDate(post.getModDate())

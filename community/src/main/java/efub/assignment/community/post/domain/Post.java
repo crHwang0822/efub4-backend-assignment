@@ -28,7 +28,7 @@ public class Post extends BaseTimeEntity {
     private Member member;
 
     @Column(name = "is_anonymous", nullable = false)
-    private boolean isAnonymous;
+    private boolean anonymous;
 
     @Column(length = 1000)
     private String content;

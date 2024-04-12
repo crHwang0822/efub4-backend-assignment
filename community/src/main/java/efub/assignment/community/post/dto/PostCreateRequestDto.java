@@ -20,7 +20,7 @@ public class PostCreateRequestDto {
     private String writerName;
 
     @NotNull
-    private boolean isAnonymous;
+    private boolean anonymous;
 
     @NotBlank
     private String content;
@@ -29,7 +29,7 @@ public class PostCreateRequestDto {
         return Post.builder()
                 .board(board)
                 .member(member)
-                .isAnonymous(this.isAnonymous)
+                .anonymous(this.anonymous)
                 .content(this.content)
                 .build();
     }
