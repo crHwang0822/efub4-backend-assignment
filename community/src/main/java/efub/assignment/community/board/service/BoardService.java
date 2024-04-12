@@ -50,4 +50,12 @@ public class BoardService {
         BoardResponseDto responseDto = BoardResponseDto.toDto(board);
         return responseDto;
     }
+
+    public void deleteBoard(Long boardId){
+        Board board = boardRepository.findById(boardId).orElseThrow(()->{
+            throw new EntityNotFoundException(boardId + ": 존재하지 않는 게시판입니다.");
+        });
+
+        boardRepository.deleteById(boardId);
+    }
 }

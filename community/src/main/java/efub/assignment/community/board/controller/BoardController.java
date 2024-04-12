@@ -36,4 +36,11 @@ public class BoardController {
         return responseDto;
     }
 
+    @DeleteMapping("/{boardId}")
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteBoard(@PathVariable Long boardId){
+        boardService.deleteBoard(boardId);
+        return "게시판을 삭제했습니다.";
+    }
+
 }
