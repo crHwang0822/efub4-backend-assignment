@@ -1,6 +1,9 @@
-package efub.assignment.community.member.controller;
+package efub.assignment.community.exception;
 
 import efub.assignment.community.global.dto.HttpErrorResponse;
+import efub.assignment.community.member.controller.MemberController;
+import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpRequest;
@@ -16,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestControllerAdvice(basePackageClasses = MemberController.class)
+@RestControllerAdvice
 public class RestExceptionAdvice {
 
     @ExceptionHandler(IllegalArgumentException.class)
@@ -29,6 +32,26 @@ public class RestExceptionAdvice {
                 .message(ex.getMessage())
                 .path(request.getRequestURI())
                 .build();
-
     }
+
+    @ExceptionHandler({EntityNotFoundException.class})
+    protected HttpErrorResponse handleEntityNotFoundException(EntityNotFoundException ex, HttpServletRequest request){
+        return HttpErrorResponse.builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error("Entity Not Found")
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+    }
+
+    @ExceptionHandler({EntityExistsException.class})
+    protected HttpErrorResponse handleEntityExistsException(EntityExistsException ex, HttpServletRequest request){
+        return HttpErrorResponse.builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error("Entity Already Exists")
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+    }
+
 }
