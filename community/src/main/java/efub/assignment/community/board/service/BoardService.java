@@ -32,8 +32,7 @@ public class BoardService {
     }
 
     public BoardResponseDto updateBoard(Long boardId, String ownerName){
-        Board board = boardRepository.findById(boardId)
-                .orElseThrow(()-> {throw new EntityNotFoundException(boardId + ": 존재하지 않는 게시판입니다.");});
+        Board board = findBoardById(boardId);
         Member member = memberService.findMemberByNickname(ownerName);
 
         board.changeOwner(member);
@@ -44,18 +43,21 @@ public class BoardService {
     }
 
     public BoardResponseDto getBoard(Long boardId){
-        Board board = boardRepository.findById(boardId).orElseThrow(()->{
-            throw new EntityNotFoundException(boardId + ": 존재하지 않는 게시판입니다.");
-        });
+        Board board = findBoardById(boardId);
         BoardResponseDto responseDto = BoardResponseDto.toDto(board);
         return responseDto;
     }
 
     public void deleteBoard(Long boardId){
+        Board board = findBoardById(boardId);
+
+        boardRepository.deleteById(boardId);
+    }
+
+    public Board findBoardById(Long boardId){
         Board board = boardRepository.findById(boardId).orElseThrow(()->{
             throw new EntityNotFoundException(boardId + ": 존재하지 않는 게시판입니다.");
         });
-
-        boardRepository.deleteById(boardId);
+        return board;
     }
 }
