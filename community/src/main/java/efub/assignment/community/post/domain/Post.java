@@ -32,4 +32,8 @@ public class Post extends BaseTimeEntity {
 
     @Column(length = 1000)
     private String content;
+
+    public void updateContent(String content){
+        this.content = content;
+    }
 }

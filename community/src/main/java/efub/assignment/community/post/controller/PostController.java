@@ -3,6 +3,7 @@ package efub.assignment.community.post.controller;
 
 import efub.assignment.community.post.dto.PostCreateRequestDto;
 import efub.assignment.community.post.dto.PostResponseDto;
+import efub.assignment.community.post.dto.PostUpdateRequestDto;
 import efub.assignment.community.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,13 @@ public class PostController {
     @ResponseStatus(HttpStatus.CREATED)
     public PostResponseDto createPost(@RequestBody @Valid final PostCreateRequestDto requestDto){
         PostResponseDto responseDto = postService.createPost(requestDto);
+        return responseDto;
+    }
+
+    @PatchMapping("/{postId}")
+    @ResponseStatus(HttpStatus.OK)
+    public PostResponseDto updatePost(@PathVariable Long postId, @RequestBody @Valid PostUpdateRequestDto requestDto){
+        PostResponseDto responseDto = postService.updatePost(postId,requestDto.getContent());
         return responseDto;
     }
 }
