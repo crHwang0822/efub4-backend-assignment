@@ -49,4 +49,11 @@ public class PostController {
         PostDetailsResponseDto responseDto = postService.getPost(postId);
         return responseDto;
     }
+
+    @DeleteMapping("/{postId}")
+    @ResponseStatus(HttpStatus.OK)
+    public String deletePost(@PathVariable Long postId){
+        postService.deletePost(postId);
+        return "게시글을 삭제했습니다.";
+    }
 }

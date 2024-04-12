@@ -51,7 +51,7 @@ public class BoardService {
     public void deleteBoard(Long boardId){
         Board board = findBoardById(boardId);
 
-        boardRepository.deleteById(boardId);
+        boardRepository.delete(board);
     }
 
     public Board findBoardById(Long boardId){
