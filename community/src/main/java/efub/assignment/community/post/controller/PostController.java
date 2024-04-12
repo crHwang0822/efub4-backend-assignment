@@ -2,13 +2,16 @@ package efub.assignment.community.post.controller;
 
 
 import efub.assignment.community.post.dto.PostCreateRequestDto;
-import efub.assignment.community.post.dto.PostResponseDto;
+import efub.assignment.community.post.dto.PostDetailsResponseDto;
+import efub.assignment.community.post.dto.PostListResponseDto;
 import efub.assignment.community.post.dto.PostUpdateRequestDto;
 import efub.assignment.community.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/posts")
@@ -19,15 +22,23 @@ public class PostController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PostResponseDto createPost(@RequestBody @Valid final PostCreateRequestDto requestDto){
-        PostResponseDto responseDto = postService.createPost(requestDto);
+    public PostDetailsResponseDto createPost(@RequestBody @Valid final PostCreateRequestDto requestDto){
+        PostDetailsResponseDto responseDto = postService.createPost(requestDto);
         return responseDto;
     }
 
     @PatchMapping("/{postId}")
     @ResponseStatus(HttpStatus.OK)
-    public PostResponseDto updatePost(@PathVariable Long postId, @RequestBody @Valid PostUpdateRequestDto requestDto){
-        PostResponseDto responseDto = postService.updatePost(postId,requestDto.getContent());
+    public PostDetailsResponseDto updatePost(@PathVariable Long postId, @RequestBody @Valid PostUpdateRequestDto requestDto){
+        PostDetailsResponseDto responseDto = postService.updatePost(postId,requestDto.getContent());
+        return responseDto;
+    }
+
+    //특정 게시판의 게시글 목록 조회
+    @GetMapping("/list/{boardId}")
+    @ResponseStatus(HttpStatus.OK)
+    public PostListResponseDto getAllPosts(@PathVariable Long boardId){
+        PostListResponseDto responseDto = postService.findPostsByBoard(boardId);
         return responseDto;
     }
 }

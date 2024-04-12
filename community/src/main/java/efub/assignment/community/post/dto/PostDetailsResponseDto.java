@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostResponseDto {
+public class PostDetailsResponseDto {
     private Long postId;
     private Long boardId;
     private String writerName;
@@ -18,8 +18,8 @@ public class PostResponseDto {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
-    public static PostResponseDto toDto(Post post){
-        return PostResponseDto.builder()
+    public static PostDetailsResponseDto toDto(Post post){
+        return PostDetailsResponseDto.builder()
                 .postId(post.getPostId())
                 .boardId(post.getBoard().getBoardId())
                 .writerName(post.getMember().getNickname())
