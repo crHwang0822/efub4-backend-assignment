@@ -1,5 +1,6 @@
 package efub.assignment.community.member.domain;
 
+import efub.assignment.community.comment.domain.Comment;
 import efub.assignment.community.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,6 +10,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -41,6 +44,9 @@ public class Member extends BaseTimeEntity {
     @ColumnDefault("'REGISTERED'")
     @Enumerated(EnumType.STRING)
     private MemberStatus status;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> commentList = new ArrayList<>();
 
     public void changeNickname(String nickname){
         this.nickname = nickname;

@@ -18,7 +18,7 @@ public class Board extends BaseTimeEntity {
     @Column(name = "board_id", nullable=false, updatable = false)
     private Long boardId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
