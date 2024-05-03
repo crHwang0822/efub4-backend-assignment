@@ -1,6 +1,5 @@
 package efub.assignment.community.member.controller;
 
-import efub.assignment.community.member.dto.MemberDetailsResponseDto;
 import efub.assignment.community.member.dto.MemberResponseDto;
 import efub.assignment.community.member.dto.MemberRequestDto;
 import efub.assignment.community.member.service.MemberService;
@@ -25,8 +24,8 @@ public class MemberController {
 
     @GetMapping("/{memberId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public MemberDetailsResponseDto getMember(@PathVariable Long memberId){
-        MemberDetailsResponseDto responseDto = memberService.findMember(memberId);
+    public MemberResponseDto getMember(@PathVariable Long memberId){
+        MemberResponseDto responseDto = memberService.getMember(memberId);
         return responseDto;
     }
 

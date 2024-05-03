@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberResponseDto {
+    private Long memberId;
     private String email;
     private String nickname;
     private String university;
@@ -15,6 +16,7 @@ public class MemberResponseDto {
 
     public static MemberResponseDto toDto(Member member){
         return MemberResponseDto.builder()
+                .memberId(member.getMemberId())
                 .email(member.getEmail())
                 .nickname(member.getNickname())
                 .university(member.getUniversity())
