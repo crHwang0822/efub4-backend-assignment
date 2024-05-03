@@ -23,4 +23,12 @@ public class CommentController {
         CommentDetailsResponseDto response = commentService.createComment(requestDto);
         return response;
     }
+
+    @PatchMapping("/{commentId}")
+    @ResponseStatus(HttpStatus.OK)
+    public CommentDetailsResponseDto updateComment(@PathVariable Long commentId, @RequestBody @Valid CommentUpdateRequestDto requestDto){
+        CommentDetailsResponseDto response = commentService.updatePost(commentId,requestDto);
+        return response;
+    }
+
 }

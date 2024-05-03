@@ -35,4 +35,32 @@ public class CommentService {
         CommentDetailsResponseDto responseDto = CommentDetailsResponseDto.toDto(comment);
         return responseDto;
     }
+
+    public CommentDetailsResponseDto updatePost(Long commentId, CommentUpdateRequestDto requestDto){
+        Comment comment = findCommentById(commentId);
+
+        //글 작성자와 요청한 회원 비교
+        Member writer = comment.getMember();
+        Member requester = memberService.findMemberByNickname(requestDto.getWriterNickname());
+        if(!(writer.equals(requester))){
+            throw new IllegalArgumentException("해당 댓글을 수정할 권한이 없습니다.");
+        }
+
+        //글 수정
+        comment.updateContent(requestDto.getContent());
+        commentRepository.save(comment);
+        commentRepository.flush();
+
+        CommentDetailsResponseDto responseDto = CommentDetailsResponseDto.toDto(comment);
+        return responseDto;
+    }
+
+    public Comment findCommentById(Long commentId){
+        Comment comment = commentRepository.findById(commentId).orElseThrow(()->{
+            throw new EntityNotFoundException(commentId + ": 존재하지 않는 댓글입니다.");
+        });
+
+        return comment;
+    }
+
 }
