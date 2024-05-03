@@ -9,6 +9,7 @@ import efub.assignment.community.comment.repository.CommentRepository;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.service.MemberService;
 import efub.assignment.community.post.domain.Post;
+import efub.assignment.community.post.dto.PostCommentResponseDto;
 import efub.assignment.community.post.service.PostService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -75,6 +77,12 @@ public class CommentService {
 
         //글 삭제
         commentRepository.delete(comment);
+    }
+
+    public List<Comment> getCommentsByPostId(Long postId){
+        Post post = postService.findPostById(postId);
+        List<Comment> commentList = post.getCommentList();
+        return commentList;
     }
 
 }
