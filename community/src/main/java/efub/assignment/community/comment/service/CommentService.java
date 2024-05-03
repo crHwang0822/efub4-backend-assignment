@@ -63,4 +63,18 @@ public class CommentService {
         return comment;
     }
 
+    public void deleteComment(Long commentId, CommentDeleteRequestDto requestDto){
+        Comment comment = findCommentById(commentId);
+
+        //글 작성자와 삭제 요청한 회원 비교
+        Member writer = comment.getMember();
+        Member requester = memberService.findMemberByNickname(requestDto.getWriterNickname());
+        if(!(writer.equals(requester))){
+            throw new IllegalArgumentException("해당 댓글을 삭제할 권한이 없습니다.");
+        }
+
+        //글 삭제
+        commentRepository.delete(comment);
+    }
+
 }

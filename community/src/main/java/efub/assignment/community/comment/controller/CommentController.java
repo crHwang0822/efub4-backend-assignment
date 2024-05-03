@@ -31,4 +31,10 @@ public class CommentController {
         return response;
     }
 
+    @DeleteMapping("/{commentId}")
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteComment(@PathVariable Long commentId, @RequestBody@ Valid CommentDeleteRequestDto requestDto){
+        commentService.deleteComment(commentId,requestDto);
+        return "댓글을 삭제했습니다.";
+    }
 }
