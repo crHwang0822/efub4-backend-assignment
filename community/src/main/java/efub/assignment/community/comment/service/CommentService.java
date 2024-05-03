@@ -85,4 +85,10 @@ public class CommentService {
         return commentList;
     }
 
+    public List<Comment> getCommentsByMemberId(Long MemberId){
+        Member member = memberService.findMemberById(MemberId);
+        List<Comment> commentList = member.getCommentList();
+        return commentList;
+    }
+
 }
