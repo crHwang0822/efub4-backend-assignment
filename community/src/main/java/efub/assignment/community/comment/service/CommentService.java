@@ -51,7 +51,6 @@ public class CommentService {
         //글 수정
         comment.updateContent(requestDto.getContent());
         commentRepository.save(comment);
-        commentRepository.flush();
 
         CommentDetailsResponseDto responseDto = CommentDetailsResponseDto.toDto(comment);
         return responseDto;

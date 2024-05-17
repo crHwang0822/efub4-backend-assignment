@@ -19,7 +19,7 @@ public class PostCommentController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public PostCommentResponseDto getCommentsByPostId(@PathVariable Long postId){
+    public PostCommentResponseDto getCommentsByPostId(@PathVariable final Long postId){
         List<Comment> commentList = commentService.getCommentsByPostId(postId);
         PostCommentResponseDto responseDto = PostCommentResponseDto.toDto(postId,commentList);
         return responseDto;

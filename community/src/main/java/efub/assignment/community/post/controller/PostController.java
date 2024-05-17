@@ -29,7 +29,7 @@ public class PostController {
 
     @PatchMapping("/{postId}")
     @ResponseStatus(HttpStatus.OK)
-    public PostDetailsResponseDto updatePost(@PathVariable Long postId, @RequestBody @Valid PostUpdateRequestDto requestDto){
+    public PostDetailsResponseDto updatePost(@PathVariable final Long postId, @RequestBody @Valid PostUpdateRequestDto requestDto){
         PostDetailsResponseDto responseDto = postService.updatePost(postId,requestDto.getContent());
         return responseDto;
     }
@@ -37,7 +37,7 @@ public class PostController {
     //특정 게시판의 게시글 목록 조회
     @GetMapping("/list/{boardId}")
     @ResponseStatus(HttpStatus.OK)
-    public PostListResponseDto getAllPosts(@PathVariable Long boardId){
+    public PostListResponseDto getAllPosts(@PathVariable final Long boardId){
         PostListResponseDto responseDto = postService.findPostsByBoard(boardId);
         return responseDto;
     }
@@ -45,7 +45,7 @@ public class PostController {
     //게시글 1개 상세 조회
     @GetMapping("/{postId}")
     @ResponseStatus(HttpStatus.OK)
-    public PostDetailsResponseDto getPost(@PathVariable Long postId){
+    public PostDetailsResponseDto getPost(@PathVariable final Long postId){
         PostDetailsResponseDto responseDto = postService.getPost(postId);
         return responseDto;
     }

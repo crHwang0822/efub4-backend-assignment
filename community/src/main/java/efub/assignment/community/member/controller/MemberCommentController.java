@@ -18,7 +18,7 @@ public class MemberCommentController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public MemberCommentResponseDto getCommentsByMemberId(@PathVariable Long memberId){
+    public MemberCommentResponseDto getCommentsByMemberId(@PathVariable final Long memberId){
         List<Comment> commentList = commentService.getCommentsByMemberId(memberId);
         MemberCommentResponseDto responseDto = MemberCommentResponseDto.toDto(memberId,commentList);
         return responseDto;

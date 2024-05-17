@@ -24,21 +24,21 @@ public class MemberController {
 
     @GetMapping("/{memberId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public MemberResponseDto getMember(@PathVariable Long memberId){
+    public MemberResponseDto getMember(@PathVariable final Long memberId){
         MemberResponseDto responseDto = memberService.getMember(memberId);
         return responseDto;
     }
 
     @PatchMapping("/profile/{memberId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public MemberResponseDto updateMember(@PathVariable Long memberId, @RequestBody @Valid MemberRequestDto requestDto){
+    public MemberResponseDto updateMember(@PathVariable final Long memberId, @RequestBody @Valid MemberRequestDto requestDto){
         MemberResponseDto responseDto = memberService.updateMember(memberId, requestDto);
         return responseDto;
     }
 
     @PatchMapping("{memberId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public String withdraw(@PathVariable Long memberId){
+    public String withdraw(@PathVariable final Long memberId){
         memberService.withdraw(memberId);
         return "삭제가 완료되었습니다.";
     }

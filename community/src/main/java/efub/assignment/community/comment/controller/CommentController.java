@@ -26,14 +26,14 @@ public class CommentController {
 
     @PatchMapping("/{commentId}")
     @ResponseStatus(HttpStatus.OK)
-    public CommentDetailsResponseDto updateComment(@PathVariable Long commentId, @RequestBody @Valid CommentUpdateRequestDto requestDto){
+    public CommentDetailsResponseDto updateComment(@PathVariable final Long commentId, @RequestBody @Valid CommentUpdateRequestDto requestDto){
         CommentDetailsResponseDto response = commentService.updatePost(commentId,requestDto);
         return response;
     }
 
     @DeleteMapping("/{commentId}")
     @ResponseStatus(HttpStatus.OK)
-    public String deleteComment(@PathVariable Long commentId, @RequestBody@ Valid CommentDeleteRequestDto requestDto){
+    public String deleteComment(@PathVariable final Long commentId, @RequestBody@ Valid CommentDeleteRequestDto requestDto){
         commentService.deleteComment(commentId,requestDto);
         return "댓글을 삭제했습니다.";
     }

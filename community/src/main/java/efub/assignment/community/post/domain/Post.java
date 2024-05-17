@@ -5,6 +5,7 @@ import efub.assignment.community.comment.domain.Comment;
 import efub.assignment.community.global.entity.BaseTimeEntity;
 import efub.assignment.community.member.domain.Member;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -24,11 +25,13 @@ public class Post extends BaseTimeEntity {
     private Long postId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
+    @NotNull
+    @JoinColumn(name = "board_id", updatable = false)
     private Board board;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @NotNull
+    @JoinColumn(name = "member_id",updatable = false)
     private Member member;
 
     @Column(name = "is_anonymous", nullable = false)
