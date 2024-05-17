@@ -20,4 +20,11 @@ public class CommentHeartController {
         commentHeartService.createCommentHeaert(requestDto);
         return "해당 댓글에 대한 좋아요가 추가되었습니다.";
     }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteCommentHeart(@RequestBody @Valid CommentHeartRequestDto requestDto){
+        commentHeartService.deleteCommentHeart(requestDto);
+        return "해당 댓글에 대한 좋아요를 삭제했습니다.";
+    }
 }

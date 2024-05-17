@@ -35,4 +35,15 @@ public class CommentHeartService {
 
         commentHeartRepository.save(commentHeart);
     }
+
+    public void deleteCommentHeart(CommentHeartRequestDto requestDto){
+        Member member = memberService.findMemberById(requestDto.getMemberId());
+        Comment comment = commentService.findCommentById(requestDto.getCommentId());
+
+        CommentHeart commentHeart = commentHeartRepository.findByCommentAndMember(comment,member).orElseThrow(()->{
+            throw new IllegalArgumentException("좋아요가 존재하지 않습니다.");
+        });
+
+        commentHeartRepository.delete(commentHeart);
+    }
 }
