@@ -20,7 +20,7 @@ public class PostHeartService {
     private final MemberService memberService;
     private final PostService postService;
 
-    public void create(PostHeartRequestDto requestDto){
+    public void createPostHeart(PostHeartRequestDto requestDto){
         Member member = memberService.findMemberById(requestDto.getMemberId());
         Post post = postService.findPostById(requestDto.getPostId());
 
@@ -37,4 +37,14 @@ public class PostHeartService {
 
     }
 
+    public void deletePostHeart(PostHeartRequestDto requestDto){
+        Member member = memberService.findMemberById(requestDto.getMemberId());
+        Post post = postService.findPostById(requestDto.getPostId());
+
+        PostHeart postHeart = postHeartRepository.findByPostAndMember(post,member).orElseThrow(()->{
+            throw new IllegalArgumentException("좋아요가 존재하지 않습니다.");
+        });
+
+        postHeartRepository.delete(postHeart);
+    }
 }

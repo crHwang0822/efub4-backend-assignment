@@ -17,7 +17,14 @@ public class PostHeartController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public String createPostHeart(@RequestBody @Valid PostHeartRequestDto requestDto){
-        postHeartService.create(requestDto);
+        postHeartService.createPostHeart(requestDto);
         return "해당 게시글에 대한 좋아요가 추가되었습니다.";
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    public String deletePostHeart(@RequestBody @Valid PostHeartRequestDto requestDto){
+        postHeartService.deletePostHeart(requestDto);
+        return "해당 게시글에 대한 좋아요를 삭제했습니다.";
     }
 }
