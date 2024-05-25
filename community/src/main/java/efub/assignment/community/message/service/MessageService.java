@@ -92,5 +92,9 @@ public class MessageService {
         return messageRoomDtoList;
     }
 
+    public void deleteAllByMessageRoom(MessageRoom messageRoom){
+        messageRepository.deleteAllByMessageRoom(messageRoom);
+    }
+
 
 }

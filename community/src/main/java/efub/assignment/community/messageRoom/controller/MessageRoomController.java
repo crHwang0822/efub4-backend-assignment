@@ -28,4 +28,10 @@ public class MessageRoomController {
         return messageRoomService.getMessageRoomExists(requestDto);
     }
 
+    @DeleteMapping("/{messageRoomId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteMessageRoom(@PathVariable("messageRoomId") final Long messageRoomId){
+        messageRoomService.deleteMessageRoom(messageRoomId);
+    }
+
 }

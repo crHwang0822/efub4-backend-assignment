@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +62,12 @@ public class MessageRoomService {
         List<MessageRoom> messageRoomList = findMessageRoomByMember(memberId);
         List<MessageRoomDto> messageRoomDtoList = messageService.findRecentMessageByMessageRoomId(messageRoomList);
         return new MessageRoomListDto(messageRoomDtoList);
+    }
+
+    public void deleteMessageRoom(Long messageRoomId){
+        MessageRoom messageRoom = findMessageRoomById(messageRoomId);
+        messageService.deleteAllByMessageRoom(messageRoom);
+        messageRoomRepository.deleteById(messageRoomId);
     }
 
     @Transactional(readOnly = true)

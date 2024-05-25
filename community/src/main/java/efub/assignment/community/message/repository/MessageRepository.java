@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface MessageRepository extends JpaRepository<Message, Long> {
     Optional<Message> findFirstByMessageRoomOrderBySendingTimeDesc(MessageRoom messageRoom);
     List<Message> findAllByMessageRoomAndSender(MessageRoom messageRoom, Member sender);
+    void deleteAllByMessageRoom(MessageRoom messageRoom);
 }
