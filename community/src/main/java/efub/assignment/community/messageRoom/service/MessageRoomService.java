@@ -55,15 +55,23 @@ public class MessageRoomService {
     }
 
     public MessageRoomListDto getMessageRoomList(Long memberId){
-        List<MessageRoom> messageRoomList = findMessageRoomIdByMember(memberId);
+        List<MessageRoom> messageRoomList = findMessageRoomByMember(memberId);
         List<MessageRoomDto> messageRoomDtoList = messageService.findRecentMessageByMessageRoomId(messageRoomList);
         return new MessageRoomListDto(messageRoomDtoList);
     }
 
     @Transactional(readOnly = true)
-    public List<MessageRoom> findMessageRoomIdByMember(Long memberId){
+    public List<MessageRoom> findMessageRoomByMember(Long memberId){
         Member member = memberService.findMemberById(memberId);
         List<MessageRoom> messageRoomList = messageRoomRepository.findBySenderOrReceiver(member);
         return messageRoomList;
+    }
+
+    @Transactional(readOnly = true)
+    public MessageRoom findMessageRoomById(Long messageRoomId){
+        MessageRoom messageRoom = messageRoomRepository.findById(messageRoomId).orElseThrow(()->{
+            throw new IllegalArgumentException(messageRoomId + ": 존재하지 않는 쪽지방입니다.");
+        });
+        return messageRoom;
     }
 }

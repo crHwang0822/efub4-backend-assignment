@@ -1,6 +1,7 @@
 package efub.assignment.community.message.domain;
 
 import efub.assignment.community.member.domain.Member;
+import efub.assignment.community.message.dto.MessageCreateResponseDto;
 import efub.assignment.community.messageRoom.domain.MessageRoom;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -42,5 +43,14 @@ public class Message {
         this.messageRoom = messageRoom;
         this.sender = sender;
         this.content = content;
+    }
+
+    public MessageCreateResponseDto toCreateResponseDto(){
+        return MessageCreateResponseDto.builder()
+                .messageRoomId(this.getMessageRoom().getMessageRoomId())
+                .senderId(this.getSender().getMemberId())
+                .content(this.content)
+                .sendingTime(this.sendingTime)
+                .build();
     }
 }
