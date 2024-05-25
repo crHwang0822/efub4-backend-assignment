@@ -8,6 +8,7 @@ import efub.assignment.community.comment.dto.CommentUpdateRequestDto;
 import efub.assignment.community.comment.repository.CommentRepository;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.service.MemberService;
+import efub.assignment.community.notification.service.NotificationService;
 import efub.assignment.community.post.domain.Post;
 import efub.assignment.community.post.dto.PostCommentResponseDto;
 import efub.assignment.community.post.service.PostService;
@@ -28,12 +29,18 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final MemberService memberService;
     private final PostService postService;
+    private final NotificationService notificationService;
 
     public CommentDetailsResponseDto createComment(CommentCreateRequestDto requestDto){
         Post post = postService.findPostById(requestDto.getPostId());
         Member member = memberService.findMemberByNickname(requestDto.getWriterNickname());
         Comment comment = requestDto.toEntity(post,member);
         commentRepository.save(comment);
+
+        //댓글 알림 생성
+        String content = String.format("새로운 댓글이 달렸어요: %s", requestDto.getContent());
+        notificationService.createCommentNotification(member,content, post);
+
         CommentDetailsResponseDto responseDto = CommentDetailsResponseDto.toDto(comment);
         return responseDto;
     }

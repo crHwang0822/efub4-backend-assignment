@@ -6,6 +6,7 @@ import efub.assignment.community.message.service.MessageService;
 import efub.assignment.community.messageRoom.domain.MessageRoom;
 import efub.assignment.community.messageRoom.dto.*;
 import efub.assignment.community.messageRoom.repository.MessageRoomRepository;
+import efub.assignment.community.notification.service.NotificationService;
 import efub.assignment.community.post.domain.Post;
 import efub.assignment.community.post.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class MessageRoomService {
     private final MessageService messageService;
     private final PostService postService;
     private final MemberService memberService;
+    private final NotificationService notificationService;
 
     public MessageRoomCreateResponseDto createMessageRoom(MessageRoomCreateRequestDto requestDto){
         Post post = postService.findPostById(requestDto.getPostId());
@@ -39,6 +41,9 @@ public class MessageRoomService {
 
         //첫 쪽지 생성
         messageService.createFirstMessage(messageRoom);
+
+        //쪽지방 알림 생성
+        notificationService.createMessageRoomNotification(receiver,"새로운 쪽지방이 생겼어요.");
 
         return messageRoom.toCreateResponseDto();
     }
