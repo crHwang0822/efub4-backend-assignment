@@ -2,6 +2,8 @@ package efub.assignment.community.message.domain;
 
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.message.dto.MessageCreateResponseDto;
+import efub.assignment.community.message.dto.MessageDto;
+import efub.assignment.community.message.dto.MessageListDto;
 import efub.assignment.community.messageRoom.domain.MessageRoom;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -51,6 +53,14 @@ public class Message {
                 .senderId(this.getSender().getMemberId())
                 .content(this.content)
                 .sendingTime(this.sendingTime)
+                .build();
+    }
+
+    public MessageDto toListDto(boolean hasSent){
+        return MessageDto.builder()
+                .content(this.content)
+                .sendingTime(this.sendingTime)
+                .hasSent(hasSent)
                 .build();
     }
 }
