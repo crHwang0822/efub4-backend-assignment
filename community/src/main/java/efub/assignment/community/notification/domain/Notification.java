@@ -1,6 +1,7 @@
 package efub.assignment.community.notification.domain;
 
 import efub.assignment.community.member.domain.Member;
+import efub.assignment.community.notification.dto.NotificationDto;
 import efub.assignment.community.post.domain.Post;
 import jakarta.persistence.*;
 import lombok.*;
@@ -39,5 +40,23 @@ public class Notification {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
+
+    public NotificationDto toDto(){
+
+        if(this.post!=null){
+            return NotificationDto.builder()
+                    .boardName(this.post.getBoard().getName())
+                    .type(this.type.getType())
+                    .content(this.content)
+                    .time(this.sendingTime)
+                    .build();
+        }
+
+        return NotificationDto.builder()
+                .type(this.type.getType())
+                .content(this.content)
+                .time(this.sendingTime)
+                .build();
+    }
 
 }

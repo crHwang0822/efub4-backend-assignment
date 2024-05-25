@@ -3,10 +3,15 @@ package efub.assignment.community.notification.service;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.notification.domain.Notification;
 import efub.assignment.community.notification.domain.NotificationType;
+import efub.assignment.community.notification.dto.NotificationDto;
+import efub.assignment.community.notification.dto.NotificationListDto;
 import efub.assignment.community.notification.repository.NotificationRepository;
 import efub.assignment.community.post.domain.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,5 +41,11 @@ public class NotificationService {
                 .content(content)
                 .build();
         notificationRepository.save(noti);
+    }
+
+    public NotificationListDto getNotificationList(Member member){
+        List<Notification> notificationList = notificationRepository.findAllByMember(member);
+        List<NotificationDto> notificationDtoList = notificationList.stream().map(notification -> notification.toDto()).collect(Collectors.toList());
+        return new NotificationListDto(notificationDtoList);
     }
 }
