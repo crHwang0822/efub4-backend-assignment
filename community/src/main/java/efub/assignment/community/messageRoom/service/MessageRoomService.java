@@ -5,6 +5,7 @@ import efub.assignment.community.member.service.MemberService;
 import efub.assignment.community.messageRoom.domain.MessageRoom;
 import efub.assignment.community.messageRoom.dto.MessageRoomCreateRequestDto;
 import efub.assignment.community.messageRoom.dto.MessageRoomCreateResponseDto;
+import efub.assignment.community.messageRoom.dto.MessageRoomExistsRequestDto;
 import efub.assignment.community.messageRoom.repository.MessageRoomRepository;
 import efub.assignment.community.post.domain.Post;
 import efub.assignment.community.post.service.PostService;
@@ -35,6 +36,16 @@ public class MessageRoomService {
         return messageRoom.toCreateResponseDto();
     }
 
+    public Long getMessageRoomExists(MessageRoomExistsRequestDto requestDto){
+        Post post = postService.findPostById(requestDto.getPostId());
+        Member sender = memberService.findMemberById(requestDto.getSenderId());
+        Member receiver = memberService.findMemberById(requestDto.getReceiverId());
+        MessageRoom messageRoom = messageRoomRepository.findByPostAndSenderAndReceiver(post,sender,receiver).orElse(null);
+        if(messageRoom != null){
+            return messageRoom.getMessageRoomId();
+        }
+        return null;
+    }
 
 
 }
