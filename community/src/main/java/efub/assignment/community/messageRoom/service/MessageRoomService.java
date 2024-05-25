@@ -2,10 +2,9 @@ package efub.assignment.community.messageRoom.service;
 
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.service.MemberService;
+import efub.assignment.community.message.service.MessageService;
 import efub.assignment.community.messageRoom.domain.MessageRoom;
-import efub.assignment.community.messageRoom.dto.MessageRoomCreateRequestDto;
-import efub.assignment.community.messageRoom.dto.MessageRoomCreateResponseDto;
-import efub.assignment.community.messageRoom.dto.MessageRoomExistsRequestDto;
+import efub.assignment.community.messageRoom.dto.*;
 import efub.assignment.community.messageRoom.repository.MessageRoomRepository;
 import efub.assignment.community.post.domain.Post;
 import efub.assignment.community.post.service.PostService;
@@ -13,12 +12,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class MessageRoomService {
 
     private final MessageRoomRepository messageRoomRepository;
+    private final MessageService messageService;
     private final PostService postService;
     private final MemberService memberService;
 
@@ -33,6 +36,10 @@ public class MessageRoomService {
                 .content(requestDto.getContent())
                 .build();
         messageRoomRepository.save(messageRoom);
+
+        //첫 쪽지 생성
+        messageService.createFirstMessage(messageRoom);
+
         return messageRoom.toCreateResponseDto();
     }
 
