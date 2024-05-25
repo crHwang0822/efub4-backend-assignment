@@ -54,5 +54,16 @@ public class MessageRoomService {
         return null;
     }
 
+    public MessageRoomListDto getMessageRoomList(Long memberId){
+        List<MessageRoom> messageRoomList = findMessageRoomIdByMember(memberId);
+        List<MessageRoomDto> messageRoomDtoList = messageService.findRecentMessageByMessageRoomId(messageRoomList);
+        return new MessageRoomListDto(messageRoomDtoList);
+    }
 
+    @Transactional(readOnly = true)
+    public List<MessageRoom> findMessageRoomIdByMember(Long memberId){
+        Member member = memberService.findMemberById(memberId);
+        List<MessageRoom> messageRoomList = messageRoomRepository.findBySenderOrReceiver(member);
+        return messageRoomList;
+    }
 }
