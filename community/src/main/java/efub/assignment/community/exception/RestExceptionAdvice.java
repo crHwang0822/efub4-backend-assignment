@@ -35,6 +35,7 @@ public class RestExceptionAdvice {
     }
 
     @ExceptionHandler({EntityNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     protected HttpErrorResponse handleEntityNotFoundException(EntityNotFoundException ex, HttpServletRequest request){
         return HttpErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
@@ -45,6 +46,7 @@ public class RestExceptionAdvice {
     }
 
     @ExceptionHandler({EntityExistsException.class})
+    @ResponseStatus(HttpStatus.CONFLICT)
     protected HttpErrorResponse handleEntityExistsException(EntityExistsException ex, HttpServletRequest request){
         return HttpErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
