@@ -26,6 +26,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -33,7 +34,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Sql(scripts = "/data.sql")
+@Sql(scripts = "/data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_CLASS)
 @ActiveProfiles("test")
 @ContextConfiguration(classes = CommunityApplication.class)
 @TestPropertySource(locations = "classpath:application-test.yml")
@@ -237,7 +238,7 @@ class PostControllerTest {
     void deletePost_success() throws Exception {
 
         //given
-        final Long postId = 1L;
+        final Long postId = 3L;
         final String url = "/posts/{postId}";
 
         //when
