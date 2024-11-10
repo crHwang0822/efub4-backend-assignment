@@ -26,19 +26,21 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_id", updatable = false)
     private Long memberId;
 
+    @Column(name = "kakao_id")
+    private Long kakaoId;
+
     @Column(nullable = false, length = 60, updatable = false)
     private String email;
 
-    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false, length = 20)
     private String nickname;
 
-    @Column(nullable = false, updatable = false, length = 20)
+    @Column(updatable = false, length = 20)
     private String university;
 
-    @Column(name = "student_id", nullable = false, updatable = false, length = 10)
+    @Column(name = "student_id", updatable = false, length = 10)
     private String studentId;
 
     @ColumnDefault("'REGISTERED'")
