@@ -56,4 +56,13 @@ public class PostController {
         postService.deletePost(postId);
         return "게시글을 삭제했습니다.";
     }
+
+    @GetMapping("/search")
+    @ResponseStatus(value = HttpStatus.OK)
+    public PostListResponseDto searchPost(
+        @RequestParam(value = "boardId", required = false) final Long boardId,
+        @RequestParam(value = "writer", required = false) final String writer,
+        @RequestParam(value = "content", required = false) final String content){
+        return postService.searchPost(boardId, writer, content);
+    }
 }

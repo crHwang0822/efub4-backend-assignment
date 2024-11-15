@@ -74,4 +74,14 @@ public class PostService {
         postRepository.delete(post);
     }
 
+    public PostListResponseDto searchPost(Long boardId, String writer, String content){
+
+        List<PostDetailsResponseDto> dtoList = postRepository.search(boardId, writer, content);
+
+        return PostListResponseDto.builder()
+            .posts(postRepository.search(boardId, writer, content))
+            .count((long) dtoList.size())
+            .build();
+    }
+
 }

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface PostRepository extends JpaRepository<Post,Long> {
+public interface PostRepository extends JpaRepository<Post,Long>, CustomPostRepository {
 
     List<Post> findByBoard_BoardId(Long boardId);
 }
